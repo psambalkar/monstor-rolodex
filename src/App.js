@@ -10,11 +10,15 @@ class App extends Component {
          monstors:[],
          searchfeild:""
          };
+     
   }
   componentDidMount(){
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response=>response.json())
     .then(users=>this.setState({monstors:users}));
+  }
+  handleChange=(e)=>{
+     this.setState({searchfeild:e.target.value});
   }
   
   render() {
@@ -22,9 +26,10 @@ class App extends Component {
     const filteredmonstor=monstors.filter(monstor=>monstor.name.toLowerCase().includes(searchfeild.toLowerCase()));
     return (
       <div className="App">
-        <SearchBox  placeholder='serch monstor' handleChange={
-        e=>{this.setState({searchfeild:e.target.value});
-        }} ></SearchBox>
+        <h1>Monstor rolodex</h1>
+        <SearchBox  placeholder='serch monstor' handleChange=
+        {this.handleChange}
+       ></SearchBox>
        <CardList monstors={filteredmonstor} >
            </CardList> 
       </div>
