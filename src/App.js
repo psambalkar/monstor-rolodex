@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {CardList} from './components/card-list/card-list.component'; 
+import {SearchBox} from './components/search-box/search-box.component';
 
 class App extends Component {
   constructor(){
     super();
     this.state={
-         monstors:[]
+         monstors:[],
+         searchfeild:""
          };
   }
   componentDidMount(){
@@ -16,12 +18,15 @@ class App extends Component {
   }
   
   render() {
+    const {monstors,searchfeild}=this.state;
+    const filteredmonstor=monstors.filter(monstor=>monstor.name.toLowerCase().includes(searchfeild.toLowerCase()));
     return (
       <div className="App">
-        {
-          this.state.monstors.map(monstor=>(<h1 key={monstor.id}>{monstor.name}</h1>))
-        }
-         
+        <SearchBox  placeholder='serch monstor' handleChange={
+        e=>{this.setState({searchfeild:e.target.value});
+        }} ></SearchBox>
+       <CardList monstors={filteredmonstor} >
+           </CardList> 
       </div>
     );
   
